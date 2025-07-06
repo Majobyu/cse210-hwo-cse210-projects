@@ -4,6 +4,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello World! This is the Sandbox Project.");
+        // Cambia la línea de abajo para que incluya tu nombre
+        Console.WriteLine("Hello World! This is the Sandbox Project by Maria Jose Sanchez.");
     }
 }
