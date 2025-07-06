@@ -4,21 +4,22 @@ class GradeCalculator
 {
     static void Main(string[] args)
     {
-        Console.Write("Por favor, introduce tu porcentaje de calificación: ");
+        // Prompt the user to enter their grade percentage
+        Console.Write("Please enter your grade percentage: ");
         string userInput = Console.ReadLine();
         int gradePercentage;
 
-        // Validar que la entrada sea un número entero
+        // Validate that the input is an integer
         if (!int.TryParse(userInput, out gradePercentage))
         {
-            Console.WriteLine("Entrada inválida. Por favor, introduce un número entero para el porcentaje.");
-            return; // Sale del programa si la entrada no es válida
+            Console.WriteLine("Invalid input. Please enter an integer for the percentage.");
+            return; // Exit the program if the input is not valid
         }
 
-        string letter = "";
-        string sign = "";
+        string letter = ""; // Variable to store the letter grade
+        string sign = "";   // Variable to store the sign (+ or -)
 
-        // Determinar la letra de la calificación
+        // Determine the letter grade
         if (gradePercentage >= 90)
         {
             letter = "A";
@@ -40,16 +41,16 @@ class GradeCalculator
             letter = "F";
         }
 
-        // Lógica para determinar el signo (+ o -), manejando los casos especiales
-        if (letter != "F") // Las calificaciones F no tienen +/-
+        // Logic to determine the sign (+ or -), handling special cases
+        if (letter != "F") // F grades do not have +/-
         {
-            int lastDigit = gradePercentage % 10;
+            int lastDigit = gradePercentage % 10; // Get the last digit of the percentage
 
             if (lastDigit >= 7)
             {
                 if (letter == "A")
                 {
-                    // No hay A+, así que no se añade ningún signo
+                    // There is no A+, so no sign is added
                     sign = ""; 
                 }
                 else
@@ -61,20 +62,20 @@ class GradeCalculator
             {
                 sign = "-";
             }
-            // Si el último dígito está entre 3 y 6, no se añade ningún signo, por lo que 'sign' permanece vacío.
+            // If the last digit is between 3 and 6, no sign is added, so 'sign' remains empty.
         }
         
-        // Imprimir la calificación final
-        Console.WriteLine($"Tu calificación es: {letter}{sign}");
+        // Print the final grade
+        Console.WriteLine($"Your grade is: {letter}{sign}");
 
-        // Determinar si el usuario aprobó o reprobó el curso
+        // Determine if the user passed or failed the course
         if (gradePercentage >= 70)
         {
-            Console.WriteLine("¡Felicidades! Aprobaste el curso.");
+            Console.WriteLine("Congratulations! You passed the course.");
         }
         else
         {
-            Console.WriteLine("¡No te desanimes! Sigue esforzándote para la próxima vez.");
+            Console.WriteLine("Don't give up! Keep striving for next time.");
         }
     }
 }

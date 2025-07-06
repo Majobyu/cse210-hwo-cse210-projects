@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq; // Necesario para .Average(), .Max(), .Min(), .Where(), .OrderBy()
+using System.Linq;
 
 public class Program
 {
@@ -29,16 +29,15 @@ public class Program
             }
         }
 
-        // Requisitos Básicos (repetidos para mantener el contexto)
-        int sum = numbers.Sum(); // Usamos .Sum() de LINQ para mayor brevedad
+        int sum = numbers.Sum();
         Console.WriteLine($"The sum is: {sum}");
 
         if (numbers.Count > 0)
         {
-            double average = numbers.Average(); // Usamos .Average() de LINQ
+            double average = numbers.Average();
             Console.WriteLine($"The average is: {average}");
 
-            int maxNumber = numbers.Max(); // Usamos .Max() de LINQ
+            int maxNumber = numbers.Max();
             Console.WriteLine($"The largest number is: {maxNumber}");
         }
         else
@@ -46,10 +45,6 @@ public class Program
             Console.WriteLine("The list is empty, cannot calculate average or find the largest number.");
         }
 
-        // Desafío de Estiramiento
-
-        // 1. Encontrar el número positivo más pequeño
-        // Filtramos solo los números positivos y luego encontramos el mínimo entre ellos
         List<int> positiveNumbers = numbers.Where(n => n > 0).ToList();
         if (positiveNumbers.Count > 0)
         {
@@ -61,8 +56,7 @@ public class Program
             Console.WriteLine("No positive numbers in the list.");
         }
 
-        // 2. Ordenar la lista y mostrarla
-        numbers.Sort(); // Ordena la lista en su lugar
+        numbers.Sort();
         Console.WriteLine("The sorted list is:");
         foreach (int num in numbers)
         {

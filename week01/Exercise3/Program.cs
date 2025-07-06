@@ -13,52 +13,50 @@ public class Program
 
         while (playAgain)
         {
-            // Generar un número mágico aleatorio entre 1 y 100
             Random random = new Random();
-            int magicNumber = random.Next(1, 101); // 1 a 100
+            int magicNumber = random.Next(1, 101); // Generates a number from 1 to 100
 
             int guess = -1;
             int guessCount = 0;
 
-            Console.WriteLine("Bienvenido al juego 'Adivina mi Número'!");
-            Console.WriteLine("Estoy pensando en un número entre 1 y 100.");
+            Console.WriteLine("Welcome to the 'Guess My Number' game!");
+            Console.WriteLine("I'm thinking of a number between 1 and 100.");
 
             while (guess != magicNumber)
             {
-                Console.Write("¿Cuál es tu suposición? ");
+                Console.Write("What is your guess? ");
                 string guessString = Console.ReadLine();
 
-                // Intentar convertir la entrada del usuario a un entero
                 if (int.TryParse(guessString, out guess))
                 {
-                    guessCount++; // Incrementar el contador de suposiciones
+                    guessCount++;
 
                     if (guess < magicNumber)
                     {
-                        Console.WriteLine("¡Más alto!");
+                        Console.WriteLine("Higher!");
                     }
                     else if (guess > magicNumber)
                     {
-                        Console.WriteLine("¡Más bajo!");
+                        Console.WriteLine("Lower!");
                     }
                     else
                     {
-                        Console.WriteLine($"¡Lo adivinaste! El número mágico era {magicNumber}.");
-                        Console.WriteLine($"Te tomó {guessCount} suposiciones.");
+                        Console.WriteLine($"You guessed it! The magic number was {magicNumber}.");
+                        Console.WriteLine($"It took you {guessCount} guesses.");
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Entrada inválida. Por favor, introduce un número.");
+                    Console.WriteLine("Invalid input. Please enter a number.");
                 }
             }
 
-            Console.Write("¿Quieres jugar de nuevo? (sí/no) ");
+            Console.Write("Do you want to play again? (yes/no) ");
             string playAgainResponse = Console.ReadLine().ToLower();
-            playAgain = (playAgainResponse == "sí" || playAgainResponse == "si");
-            Console.WriteLine(); // Añadir una línea en blanco para mayor claridad
+            playAgain = (playAgainResponse == "yes"); // Check for "yes"
+            Console.WriteLine();
         }
 
-        Console.WriteLine("¡Gracias por jugar!");
+        Console.WriteLine("Thanks for playing!");
     }
 }
