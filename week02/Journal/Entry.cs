@@ -1,4 +1,3 @@
-// Entry.cs
 public class Entry
 {
     public string Prompt { get; set; }
@@ -14,9 +13,9 @@ public class Entry
 
     public void Display()
     {
-        Console.WriteLine($"Fecha: {Date}");
-        Console.WriteLine($"Indicación: {Prompt}");
-        Console.WriteLine($"Respuesta: {Response}");
+        Console.WriteLine($"Date: {Date}");
+        Console.WriteLine($"Prompt: {Prompt}");
+        Console.WriteLine($"Response: {Response}");
         Console.WriteLine("--------------------");
     }
 }

@@ -1,25 +1,25 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-// using System.Linq; // No es estrictamente necesario para las operaciones actuales en LoadFromFile
+using System.Linq; // Needed for .ToList() in LoadFromFile
 
 public class Journal
 {
     private List<Entry> _entries;
-    private List<string> _prompts; // Lista de indicaciones
+    private List<string> _prompts; // List of prompts
 
     public Journal()
     {
         _entries = new List<Entry>();
         _prompts = new List<string>
         {
-            "¿Quién fue la persona más interesante con la que interactué hoy?",
-            "¿Cuál fue la mejor parte de mi día?",
-            "¿Cómo vi la mano del Señor en mi vida hoy?",
-            "¿Cuál fue la emoción más fuerte que sentí hoy?",
-            "Si tuviera que hacer una cosa hoy, ¿qué sería?",
-            "¿Qué aprendí hoy?", // Indicación adicional
-            "¿Por qué estoy agradecido hoy?" // Indicación adicional
+            "Who was the most interesting person I interacted with today?",
+            "What was the best part of my day?",
+            "How did I see the hand of the Lord in my life today?",
+            "What was the strongest emotion I felt today?",
+            "If I had to do one thing today, what would it be?",
+            "What did I learn today?", // Additional prompt
+            "What am I grateful for today?" // Additional prompt
         };
     }
 
@@ -28,75 +28,74 @@ public class Journal
         Random random = new Random();
         string randomPrompt = _prompts[random.Next(_prompts.Count)];
 
-        Console.WriteLine($"\nIndicación: {randomPrompt}");
-        Console.Write("Tu respuesta: ");
+        Console.WriteLine($"\nPrompt: {randomPrompt}");
+        Console.Write("Your response: ");
         string userResponse = Console.ReadLine();
-        string currentDate = DateTime.Now.ToShortDateString(); // Formato de fecha simple
+        string currentDate = DateTime.Now.ToShortDateString(); // Simple date format
 
         Entry newEntry = new Entry(randomPrompt, userResponse, currentDate);
         _entries.Add(newEntry);
-        Console.WriteLine("Entrada guardada con éxito.");
+        Console.WriteLine("Entry saved successfully.");
     }
 
     public void DisplayJournal()
     {
         if (_entries.Count == 0)
         {
-            Console.WriteLine("\nEl diario está vacío. No hay entradas para mostrar.");
+            Console.WriteLine("\nThe journal is empty. There are no entries to display.");
             return;
         }
 
-        Console.WriteLine("\n--- DIARIO COMPLETO ---");
+        Console.WriteLine("\n--- FULL JOURNAL ---");
         foreach (Entry entry in _entries)
         {
             entry.Display();
         }
-        Console.WriteLine("--- FIN DEL DIARIO ---\n");
+        Console.WriteLine("--- END OF JOURNAL ---\n");
     }
 
     public void SaveToFile()
     {
-        Console.Write("Ingresa el nombre del archivo para guardar (ej. mi_diario.txt): ");
+        Console.Write("Enter the filename to save (e.g. my_journal.txt): ");
         string filename = Console.ReadLine();
 
         try
         {
             using (StreamWriter outputFile = new StreamWriter(filename))
             {
-                // Usamos '|~|' como separador para evitar conflictos con comas.
+                // Using '|~|' as a separator to avoid conflicts with commas.
                 foreach (Entry entry in _entries)
                 {
                     outputFile.WriteLine($"{entry.Date}|~|{entry.Prompt}|~|{entry.Response}");
                 }
             }
-            Console.WriteLine($"Diario guardado en '{filename}' con éxito.");
+            Console.WriteLine($"Journal saved successfully to '{filename}'.");
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error al guardar el archivo: {ex.Message}");
+            Console.WriteLine($"Error saving the file: {ex.Message}");
         }
     }
 
     public void LoadFromFile()
     {
-        Console.Write("Ingresa el nombre del archivo para cargar (ej. mi_diario.txt): ");
+        Console.Write("Enter the filename to load (e.g. my_journal.txt): ");
         string filename = Console.ReadLine();
 
         if (!File.Exists(filename))
         {
-            Console.WriteLine($"Error: El archivo '{filename}' no existe.");
+            Console.WriteLine($"Error: The file '{filename}' does not exist.");
             return;
         }
 
         try
         {
-            _entries.Clear(); // Borra las entradas actuales antes de cargar nuevas
+            _entries.Clear(); // Clear current entries before loading new ones
             string[] lines = File.ReadAllLines(filename);
 
             foreach (string line in lines)
             {
-                // Se usa el método Split con el separador como string directamente para mayor concisión.
-                string[] parts = line.Split("|~|", StringSplitOptions.None);
+                string[] parts = line.Split(new string[] { "|~|" }, StringSplitOptions.None);
                 if (parts.Length == 3)
                 {
                     string date = parts[0];
@@ -106,14 +105,14 @@ public class Journal
                 }
                 else
                 {
-                    Console.WriteLine($"Advertencia: Línea con formato incorrecto omitida: {line}");
+                    Console.WriteLine($"Warning: Skipped line with incorrect format: {line}");
                 }
             }
-            Console.WriteLine($"Diario cargado desde '{filename}' con éxito. {_entries.Count} entradas cargadas.");
+            Console.WriteLine($"Journal loaded successfully from '{filename}'. {_entries.Count} entries loaded.");
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error al cargar el archivo: {ex.Message}");
+            Console.WriteLine($"Error loading the file: {ex.Message}");
         }
     }
 }
